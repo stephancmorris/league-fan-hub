@@ -1,0 +1,16 @@
+nrl-fan-hub-design-doc.pdf
+nrl-fan-hub-stories.md
+design-doc.md
+design-document.md
+DESIGN*.md
+stories.md
+sprint-stories.md
+STORIES*.md
+explanation*.md
+EXPLANATION*.md
+planning/
+docs/internal/
+*.planning.md
+.env.local
+.env*.local
+README.md
