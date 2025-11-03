@@ -4,11 +4,12 @@ import { useState, useCallback } from 'react'
 import { MatchCard } from '@/components/match/MatchCard'
 import { useMatches } from '@/hooks/useMatches'
 import { useMatchUpdates } from '@/hooks/useMatchUpdates'
+import { usePredictions } from '@/hooks/usePredictions'
 import { MatchStatus } from '@prisma/client'
 import { MatchUpdatePayload } from '@/types/match'
 
 /**
- * Matches page - Display all matches with live updates
+ * Matches page - Display all matches with live updates and predictions
  */
 export default function MatchesPage() {
   const [selectedStatus, setSelectedStatus] = useState<MatchStatus | 'ALL'>('ALL')
@@ -17,6 +18,9 @@ export default function MatchesPage() {
     status: selectedStatus === 'ALL' ? undefined : selectedStatus,
     refreshInterval: 30000, // Fallback refresh every 30 seconds
   })
+
+  // Load user predictions with optimistic updates
+  const { submitPrediction, getPredictionForMatch } = usePredictions()
 
   // Handle WebSocket match updates
   const handleMatchUpdate = useCallback(
@@ -40,6 +44,14 @@ export default function MatchesPage() {
 
   // Subscribe to all match updates via WebSocket
   const { isConnected } = useMatchUpdates(undefined, handleMatchUpdate)
+
+  // Handle prediction submission
+  const handlePredictionSubmit = useCallback(
+    async (matchId: string, predictedWinner: string) => {
+      await submitPrediction(matchId, predictedWinner)
+    },
+    [submitPrediction]
+  )
 
   const statusTabs = [
     { value: 'ALL' as const, label: 'All Matches' },
@@ -164,9 +176,26 @@ export default function MatchesPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {matches.map((match) => (
-              <MatchCard key={match.id} match={match} showPredictionButton />
-            ))}
+            {matches.map((match) => {
+              const userPrediction = getPredictionForMatch(match.id)
+              return (
+                <MatchCard
+                  key={match.id}
+                  match={match}
+                  showPredictionWidget
+                  userPrediction={
+                    userPrediction
+                      ? {
+                          predictedWinner: userPrediction.predictedWinner,
+                          points: userPrediction.points,
+                          isCorrect: userPrediction.isCorrect,
+                        }
+                      : null
+                  }
+                  onPredictionSubmit={handlePredictionSubmit}
+                />
+              )
+            })}
           </div>
         )}
       </div>
