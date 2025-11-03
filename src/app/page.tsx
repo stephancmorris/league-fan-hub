@@ -1,10 +1,16 @@
+import { UserMenu } from '@/components/auth'
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
-        <h1 className="text-4xl font-bold text-center mb-8">
-          NRL Fan Hub
-        </h1>
+    <main className="flex min-h-screen flex-col p-8">
+      <header className="w-full max-w-7xl mx-auto mb-12">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-primary-900">NRL Fan Hub</h1>
+          <UserMenu />
+        </div>
+      </header>
+      <div className="z-10 max-w-5xl w-full mx-auto items-center justify-between font-mono text-sm">
+        <h2 className="text-4xl font-bold text-center mb-8">Welcome to NRL Fan Hub</h2>
         <p className="text-center text-lg mb-4">
           Your ultimate destination for live NRL scores and predictions
         </p>
