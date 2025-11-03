@@ -4,9 +4,18 @@ import { Match } from '@/types/match'
 import { MatchStatus } from '@prisma/client'
 import Image from 'next/image'
 import { formatDistanceToNow } from 'date-fns'
+import { PredictionWidget } from '@/components/prediction/PredictionWidget'
 
 interface MatchCardProps {
   match: Match
+  showPredictionWidget?: boolean
+  userPrediction?: {
+    predictedWinner: string
+    points: number
+    isCorrect: boolean | null
+  } | null
+  onPredictionSubmit?: (matchId: string, predictedWinner: string) => Promise<void>
+  // Legacy props for backward compatibility
   showPredictionButton?: boolean
   onPredictClick?: (matchId: string) => void
 }
@@ -15,7 +24,14 @@ interface MatchCardProps {
  * MatchCard component
  * Displays match information with live score updates
  */
-export function MatchCard({ match, showPredictionButton = false, onPredictClick }: MatchCardProps) {
+export function MatchCard({
+  match,
+  showPredictionWidget = false,
+  userPrediction,
+  onPredictionSubmit,
+  showPredictionButton = false,
+  onPredictClick,
+}: MatchCardProps) {
   const isLive = match.status === MatchStatus.LIVE
   const isCompleted = match.status === MatchStatus.COMPLETED
   const isUpcoming = match.status === MatchStatus.UPCOMING
@@ -121,16 +137,26 @@ export function MatchCard({ match, showPredictionButton = false, onPredictClick 
         </div>
       </div>
 
-      {/* Footer: Prediction Button */}
-      {showPredictionButton && isUpcoming && onPredictClick && (
-        <div className="mt-4 pt-4 border-t border-gray-200">
-          <button
-            onClick={() => onPredictClick(match.id)}
-            className="w-full bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded transition-colors"
-          >
-            Make Prediction
-          </button>
-        </div>
+      {/* Footer: Prediction Widget or Legacy Button */}
+      {showPredictionWidget ? (
+        <PredictionWidget
+          match={match}
+          userPrediction={userPrediction}
+          onPredictionSubmit={onPredictionSubmit}
+        />
+      ) : (
+        showPredictionButton &&
+        isUpcoming &&
+        onPredictClick && (
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <button
+              onClick={() => onPredictClick(match.id)}
+              className="w-full bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded transition-colors"
+            >
+              Make Prediction
+            </button>
+          </div>
+        )
       )}
 
       {/* Half Time Indicator */}
