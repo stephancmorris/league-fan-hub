@@ -1,6 +1,24 @@
+// Optional bundle analyzer - only load if package is installed
+let withBundleAnalyzer
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+  })
+} catch {
+  // Bundle analyzer not installed, use identity function
+  withBundleAnalyzer = (config) => config
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Production optimizations
+  productionBrowserSourceMaps: false,
+  // Optimize JavaScript bundles
+  experimental: {
+    optimizePackageImports: ['@auth0/nextjs-auth0', 'date-fns', 'socket.io-client'],
+  },
   images: {
     domains: ['assets.nrl.com', 'localhost', 'via.placeholder.com'],
     remotePatterns: [
@@ -26,6 +44,9 @@ const nextConfig = {
       },
     ],
     formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // Cache images for 30 days
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   poweredByHeader: false,
   compress: true,
@@ -33,7 +54,7 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // Security headers
+  // Security and caching headers
   async headers() {
     return [
       {
@@ -65,8 +86,46 @@ const nextConfig = {
           },
         ],
       },
+      // Cache static assets aggressively
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=2592000, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      // Cache API responses with shorter TTL
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=30, stale-while-revalidate=60',
+          },
+        ],
+      },
     ]
   },
 }
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

@@ -1,0 +1,147 @@
+'use client'
+
+import { FixedSizeList as List } from 'react-window'
+import Image from 'next/image'
+import { LeaderboardEntry } from '@/lib/leaderboard'
+
+interface VirtualizedLeaderboardProps {
+  entries: LeaderboardEntry[]
+  height: number
+  itemHeight: number
+  timeframe: 'week' | 'all-time'
+}
+
+/**
+ * VirtualizedLeaderboard component
+ * Uses react-window for efficient rendering of large leaderboard lists
+ *
+ * IMPORTANT: This component requires 'react-window' to be installed.
+ * After running 'npm install', rename this file to VirtualizedLeaderboard.tsx
+ */
+export function VirtualizedLeaderboard({
+  entries,
+  height,
+  itemHeight,
+  timeframe,
+}: VirtualizedLeaderboardProps) {
+  const getRankBadgeColor = (rank: number) => {
+    if (rank === 1) return 'bg-yellow-100 text-yellow-800 border-yellow-300'
+    if (rank === 2) return 'bg-gray-100 text-gray-800 border-gray-300'
+    if (rank === 3) return 'bg-orange-100 text-orange-800 border-orange-300'
+    return 'bg-blue-50 text-blue-700 border-blue-200'
+  }
+
+  const getRankIcon = (rank: number) => {
+    if (rank === 1) return '🥇'
+    if (rank === 2) return '🥈'
+    if (rank === 3) return '🥉'
+    return null
+  }
+
+  const getAccuracyColor = (accuracy: number) => {
+    if (accuracy >= 70) return 'bg-green-100 text-green-800'
+    if (accuracy >= 50) return 'bg-yellow-100 text-yellow-800'
+    return 'bg-gray-100 text-gray-600'
+  }
+
+  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+    const entry = entries[index]
+    const rankIcon = getRankIcon(entry.rank)
+
+    return (
+      <div
+        style={style}
+        className="flex items-center px-6 py-4 border-b border-gray-200 bg-white hover:bg-gray-50"
+      >
+        {/* Rank */}
+        <div className="w-20 flex-shrink-0">
+          <span
+            className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-bold border-2 ${getRankBadgeColor(entry.rank)}`}
+          >
+            {rankIcon && <span className="mr-1">{rankIcon}</span>}
+            {entry.rank}
+          </span>
+        </div>
+
+        {/* User */}
+        <div className="flex-1 flex items-center min-w-0">
+          {entry.userPicture ? (
+            <Image
+              src={entry.userPicture}
+              alt={entry.userName}
+              width={40}
+              height={40}
+              className="rounded-full mr-3 flex-shrink-0"
+            />
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mr-3 flex-shrink-0">
+              <span className="text-gray-600 font-semibold">
+                {entry.userName.charAt(0).toUpperCase()}
+              </span>
+            </div>
+          )}
+          <span className="font-medium text-gray-900 truncate">{entry.userName}</span>
+        </div>
+
+        {/* Points */}
+        <div className="w-24 text-center flex-shrink-0">
+          <span className="text-lg font-bold text-accent-500">{entry.totalPoints}</span>
+        </div>
+
+        {/* Predictions */}
+        <div className="w-32 text-center flex-shrink-0">
+          <div className="text-sm">
+            <span className="font-semibold text-green-600">{entry.correctPredictions}</span>
+            <span className="text-gray-400"> / </span>
+            <span className="text-gray-600">{entry.totalPredictions}</span>
+          </div>
+        </div>
+
+        {/* Accuracy */}
+        <div className="w-24 text-center flex-shrink-0">
+          <span
+            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium ${getAccuracyColor(entry.accuracy)}`}
+          >
+            {entry.accuracy}%
+          </span>
+        </div>
+
+        {/* Streak (only for all-time) */}
+        {timeframe === 'all-time' && (
+          <div className="w-24 text-center flex-shrink-0">
+            <span className="text-lg font-semibold text-orange-600">
+              {entry.streak > 0 && '🔥'} {entry.streak}
+            </span>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      {/* Table Header */}
+      <div className="flex items-center px-6 py-4 bg-gray-50 border-b border-gray-200 font-semibold text-sm text-gray-700">
+        <div className="w-20 flex-shrink-0">Rank</div>
+        <div className="flex-1 min-w-0">Player</div>
+        <div className="w-24 text-center flex-shrink-0">Points</div>
+        <div className="w-32 text-center flex-shrink-0">Predictions</div>
+        <div className="w-24 text-center flex-shrink-0">Accuracy</div>
+        {timeframe === 'all-time' && (
+          <div className="w-24 text-center flex-shrink-0">Streak</div>
+        )}
+      </div>
+
+      {/* Virtualized List */}
+      <List
+        height={height}
+        itemCount={entries.length}
+        itemSize={itemHeight}
+        width="100%"
+        className="scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
+      >
+        {Row}
+      </List>
+    </div>
+  )
+}
