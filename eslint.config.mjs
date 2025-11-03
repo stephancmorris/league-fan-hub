@@ -24,6 +24,7 @@ export default [
       'build/**',
       '.cache/**',
       'next-env.d.ts',
+      'server.js',
     ],
   },
   ...compat.extends(
