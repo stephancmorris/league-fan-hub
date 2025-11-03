@@ -137,3 +137,17 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Project documentation and planning (for lead engineer role)
+DESIGN*.md
+stories.md
+sprint-stories.md
+STORIES*.md
+explanation*.md
+EXPLANATION*.md
+planning/
+docs/internal/
+*.planning.md
+nrl-fan-hub-stories.md
+nrl-fan-hub-design-doc.pdf
+.github/pull_request_template.md
