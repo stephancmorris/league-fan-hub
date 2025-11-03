@@ -50,7 +50,10 @@ export const PATCH = withRole('admin', async (req: NextRequest, _user: Auth0User
     // Broadcast update via WebSocket if available
     if (global.io) {
       if (homeScore !== undefined || awayScore !== undefined) {
-        global.io.broadcastScoreUpdate(matchId, updatedMatch.homeScore, updatedMatch.awayScore)
+        // Only broadcast if scores are not null
+        if (updatedMatch.homeScore !== null && updatedMatch.awayScore !== null) {
+          global.io.broadcastScoreUpdate(matchId, updatedMatch.homeScore, updatedMatch.awayScore)
+        }
       }
       if (status) {
         global.io.broadcastStatusUpdate(matchId, status, { currentMinute, half })

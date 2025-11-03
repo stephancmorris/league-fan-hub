@@ -15,7 +15,7 @@ export function useAuth() {
    */
   const hasRole = (role: UserRole | string): boolean => {
     if (!user) return false
-    const roles = user['https://nrl-fan-hub.com/roles'] || []
+    const roles = (user['https://nrl-fan-hub.com/roles'] as string[]) || []
     return roles.includes(role)
   }
 
@@ -24,7 +24,7 @@ export function useAuth() {
    */
   const hasAnyRole = (roles: (UserRole | string)[]): boolean => {
     if (!user) return false
-    const userRoles = user['https://nrl-fan-hub.com/roles'] || []
+    const userRoles = (user['https://nrl-fan-hub.com/roles'] as string[]) || []
     return roles.some((role) => userRoles.includes(role))
   }
 
@@ -46,28 +46,30 @@ export function useAuth() {
    * Get user ID
    */
   const getUserId = (): string | undefined => {
-    return user?.sub || user?.['https://nrl-fan-hub.com/user_id']
+    return (
+      (user?.sub as string) || (user?.['https://nrl-fan-hub.com/user_id'] as string) || undefined
+    )
   }
 
   /**
    * Get user email
    */
   const getEmail = (): string | undefined => {
-    return user?.email
+    return (user?.email as string) || undefined
   }
 
   /**
    * Get user name
    */
   const getName = (): string | undefined => {
-    return user?.name
+    return (user?.name as string) || undefined
   }
 
   /**
    * Get user picture
    */
   const getPicture = (): string | undefined => {
-    return user?.picture
+    return (user?.picture as string) || undefined
   }
 
   return {

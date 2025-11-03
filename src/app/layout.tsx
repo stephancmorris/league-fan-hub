@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { AuthSync } from '@/components/auth/AuthSync'
@@ -12,8 +12,6 @@ export const metadata: Metadata = {
     'Engage with NRL matches in real-time. Make predictions, compete on leaderboards, and connect with fans.',
   keywords: ['NRL', 'Rugby League', 'Live Scores', 'Predictions', 'Fan Hub'],
   authors: [{ name: 'NRL Fan Hub Team' }],
-  viewport: 'width=device-width, initial-scale=1',
-  themeColor: '#1e3a8a',
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.ico',
@@ -24,6 +22,12 @@ export const metadata: Metadata = {
     description: 'Live NRL scores and fan predictions',
     type: 'website',
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#0B8246', // NRL official brand green
 }
 
 export default function RootLayout({
