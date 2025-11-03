@@ -2,10 +2,23 @@ import { render, screen } from '@testing-library/react'
 import Home from './page'
 
 describe('Home Page', () => {
-  it('renders the NRL Fan Hub heading', () => {
+  it('renders the welcome heading', () => {
     render(<Home />)
-    const heading = screen.getByText(/NRL Fan Hub/i)
+    const heading = screen.getByText(/Welcome to NRL Fan Hub/i)
     expect(heading).toBeInTheDocument()
+  })
+
+  it('renders the site title in header', () => {
+    render(<Home />)
+    const allNRLFanHub = screen.getAllByText(/NRL Fan Hub/i)
+    expect(allNRLFanHub.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('renders the tagline', () => {
+    render(<Home />)
+    expect(
+      screen.getByText(/Your ultimate destination for live NRL scores and predictions/i)
+    ).toBeInTheDocument()
   })
 
   it('renders the three feature cards', () => {
@@ -20,5 +33,17 @@ describe('Home Page', () => {
     expect(screen.getByText(/Follow real-time scores and updates/i)).toBeInTheDocument()
     expect(screen.getByText(/Compete with other fans/i)).toBeInTheDocument()
     expect(screen.getByText(/Climb the ranks/i)).toBeInTheDocument()
+  })
+
+  it('shows coming soon labels for predictions and leaderboards', () => {
+    render(<Home />)
+    const comingSoonLabels = screen.getAllByText(/Coming soon/i)
+    expect(comingSoonLabels).toHaveLength(2)
+  })
+
+  it('has a link to the matches page', () => {
+    render(<Home />)
+    const matchesLink = screen.getByRole('link', { name: /Live Matches/i })
+    expect(matchesLink).toHaveAttribute('href', '/matches')
   })
 })
