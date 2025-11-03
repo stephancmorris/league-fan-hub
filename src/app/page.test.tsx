@@ -35,15 +35,21 @@ describe('Home Page', () => {
     expect(screen.getByText(/Climb the ranks/i)).toBeInTheDocument()
   })
 
-  it('shows coming soon labels for predictions and leaderboards', () => {
-    render(<Home />)
-    const comingSoonLabels = screen.getAllByText(/Coming soon/i)
-    expect(comingSoonLabels).toHaveLength(2)
-  })
-
-  it('has a link to the matches page', () => {
+  it('has links to all main features', () => {
     render(<Home />)
     const matchesLink = screen.getByRole('link', { name: /Live Matches/i })
     expect(matchesLink).toHaveAttribute('href', '/matches')
+
+    const predictionsLink = screen.getByRole('link', { name: /Make Predictions/i })
+    expect(predictionsLink).toHaveAttribute('href', '/predictions')
+
+    const leaderboardLink = screen.getByRole('link', { name: /Leaderboards/i })
+    expect(leaderboardLink).toHaveAttribute('href', '/leaderboard')
+  })
+
+  it('displays updated feature descriptions', () => {
+    render(<Home />)
+    expect(screen.getByText(/Compete with other fans and earn points/i)).toBeInTheDocument()
+    expect(screen.getByText(/Climb the ranks and compete globally/i)).toBeInTheDocument()
   })
 })

@@ -34,11 +34,13 @@ export default function Home() {
             <h2 className="text-xl font-semibold mb-2 text-primary-600">Make Predictions</h2>
             <p className="text-gray-600">Compete with other fans and earn points</p>
           </Link>
-          <div className="p-6 border border-gray-200 rounded-lg opacity-75">
-            <h2 className="text-xl font-semibold mb-2">Leaderboards</h2>
-            <p className="text-gray-600">Climb the ranks</p>
-            <span className="text-xs text-gray-400 mt-2 inline-block">Coming soon</span>
-          </div>
+          <Link
+            href="/leaderboard"
+            className="p-6 border border-gray-200 rounded-lg hover:border-primary-500 hover:shadow-md transition-all"
+          >
+            <h2 className="text-xl font-semibold mb-2 text-primary-600">Leaderboards</h2>
+            <p className="text-gray-600">Climb the ranks and compete globally</p>
+          </Link>
         </div>
       </div>
     </main>
