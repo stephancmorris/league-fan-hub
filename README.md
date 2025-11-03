@@ -15,23 +15,27 @@ A high-performance, scalable fan engagement platform built with Next.js, React, 
 ## Tech Stack
 
 ### Frontend
+
 - **Next.js 14** - React framework with App Router
 - **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first styling
 - **SWR** - Data fetching and caching
 
 ### Backend
+
 - **Next.js API Routes** - Serverless API
 - **PostgreSQL** - Primary database
 - **Redis** - Caching and session management
 - **WebSockets** - Real-time updates
 
 ### Authentication & Security
+
 - **Auth0** - Authentication and authorization
 - **Zod** - Runtime type validation
 - **Security Headers** - OWASP best practices
 
 ### DevOps & Infrastructure
+
 - **Vercel** - Hosting and deployments
 - **GitHub Actions** - CI/CD pipeline
 - **Jest & React Testing Library** - Testing
@@ -40,49 +44,99 @@ A high-performance, scalable fan engagement platform built with Next.js, React, 
 
 ## Getting Started
 
-### Prerequisites
+### 🚀 Automated Setup (Recommended)
+
+**The fastest way to get started!** Use our interactive setup scripts:
+
+#### Mac / Linux
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+#### Windows
+
+```cmd
+setup.bat
+```
+
+The script will guide you through:
+
+- ✅ Installing dependencies
+- ✅ Configuring Auth0
+- ✅ Setting up environment variables
+- ✅ Creating the database
+- ✅ Starting the dev server
+
+**Time:** ~10 minutes | **Difficulty:** Beginner-friendly
+
+📚 **Full documentation:** [SETUP_SCRIPTS.md](./SETUP_SCRIPTS.md)
+
+---
+
+### 📖 Manual Setup
+
+Prefer to do it manually? Follow the detailed guide:
+
+**Quick reference:** [QUICK_START.md](./QUICK_START.md)
+**Step-by-step guide:** [SETUP_GUIDE.md](./SETUP_GUIDE.md)
+
+#### Prerequisites
 
 - Node.js 20+ and npm
-- PostgreSQL 14+
-- Redis (optional for local development)
-- Auth0 account
+- PostgreSQL 14+ (or Docker)
+- Auth0 account (free tier)
 
-### Installation
+#### Installation Steps
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/league-fan-hub.git
    cd league-fan-hub
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
-3. **Setup environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
+3. **Generate Auth0 secret**
 
-   Fill in your environment variables:
-   - Auth0 credentials from https://manage.auth0.com
-   - Database connection string
-   - Redis URL (if using)
-
-4. **Generate Auth0 secret**
    ```bash
    openssl rand -hex 32
    ```
-   Add this to `AUTH0_SECRET` in `.env.local`
 
-5. **Setup the database**
+4. **Configure Auth0**
+   - Sign up at [auth0.com](https://auth0.com)
+   - Create a Regular Web Application
+   - Add `http://localhost:3000/api/auth/callback` to Allowed Callback URLs
+   - Get your Domain, Client ID, and Client Secret
+
+5. **Setup environment variables**
+
+   Update `.env.local` with your Auth0 credentials:
+
    ```bash
-   npm run db:migrate
-   npm run db:seed
+   AUTH0_SECRET=<paste-output-from-step-3>
+   AUTH0_ISSUER_BASE_URL=https://your-tenant.auth0.com
+   AUTH0_CLIENT_ID=your-client-id
+   AUTH0_CLIENT_SECRET=your-client-secret
+   DATABASE_URL=postgresql://postgres:postgres@localhost:5432/nrl_fan_hub
    ```
 
-6. **Run the development server**
+6. **Setup the database**
+
+   ```bash
+   createdb nrl_fan_hub
+   npm run db:generate
+   npm run db:push
+   ```
+
+7. **Run the development server**
+
    ```bash
    npm run dev
    ```
@@ -137,6 +191,7 @@ league-fan-hub/
 ### Vercel (Recommended)
 
 1. **Connect to Vercel**
+
    ```bash
    npm i -g vercel
    vercel
@@ -152,6 +207,7 @@ league-fan-hub/
 ### Environment Variables (Production)
 
 Required environment variables for production:
+
 - `AUTH0_*` - Auth0 configuration
 - `DATABASE_URL` - PostgreSQL connection
 - `REDIS_URL` - Redis connection
@@ -208,6 +264,7 @@ test(prediction): add validation tests
 ## Performance
 
 ### Targets
+
 - ✅ Lighthouse Score: >90
 - ✅ First Contentful Paint: <1.5s
 - ✅ Time to Interactive: <3s
@@ -215,6 +272,7 @@ test(prediction): add validation tests
 - ✅ Concurrent Users: 100K+
 
 ### Optimizations
+
 - Code splitting and lazy loading
 - Image optimization with Next.js Image
 - CDN caching via Vercel Edge Network
@@ -251,6 +309,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 For questions or issues, please:
+
 1. Check existing issues
 2. Create a new issue with details
 3. Contact the development team

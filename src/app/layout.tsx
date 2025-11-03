@@ -1,12 +1,15 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { UserProvider } from '@auth0/nextjs-auth0/client'
+import { AuthSync } from '@/components/auth/AuthSync'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'NRL Fan Hub - Live Scores & Predictions',
-  description: 'Engage with NRL matches in real-time. Make predictions, compete on leaderboards, and connect with fans.',
+  description:
+    'Engage with NRL matches in real-time. Make predictions, compete on leaderboards, and connect with fans.',
   keywords: ['NRL', 'Rugby League', 'Live Scores', 'Predictions', 'Fan Hub'],
   authors: [{ name: 'NRL Fan Hub Team' }],
   viewport: 'width=device-width, initial-scale=1',
@@ -30,7 +33,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <UserProvider>
+          <AuthSync />
+          {children}
+        </UserProvider>
+      </body>
     </html>
   )
 }

@@ -4,6 +4,24 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['assets.nrl.com', 'localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.gravatar.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 's.gravatar.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   poweredByHeader: false,
@@ -42,10 +60,10 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
           },
-        ]
-      }
+        ],
+      },
     ]
-  }
+  },
 }
 
 module.exports = nextConfig
