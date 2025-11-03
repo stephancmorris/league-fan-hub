@@ -25,6 +25,10 @@ export default [
       '.cache/**',
       'next-env.d.ts',
       'server.js',
+      'scripts/**',
+      'prisma/seed.ts',
+      'jest.config.js',
+      'jest.setup.js',
     ],
   },
   ...compat.extends(

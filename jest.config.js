@@ -18,7 +18,7 @@ const customJestConfig = {
     '!src/**/*.stories.{js,jsx,ts,tsx}',
     '!src/**/__tests__/**',
   ],
-  coverageThresholds: {
+  coverageThreshold: {
     global: {
       branches: 70,
       functions: 70,
@@ -26,10 +26,8 @@ const customJestConfig = {
       statements: 70,
     },
   },
-  testMatch: [
-    '**/__tests__/**/*.(test|spec).[jt]s?(x)',
-    '**/?(*.)+(spec|test).[jt]s?(x)',
-  ],
+  testMatch: ['**/__tests__/**/*.(test|spec).[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  transformIgnorePatterns: ['node_modules/(?!(jose|@auth0)/)'],
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
