@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { UserMenu } from '@/components/auth'
 
 export default function Home() {
@@ -15,17 +16,22 @@ export default function Home() {
           Your ultimate destination for live NRL scores and predictions
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-          <div className="p-6 border border-gray-200 rounded-lg">
-            <h2 className="text-xl font-semibold mb-2">Live Matches</h2>
+          <Link
+            href="/matches"
+            className="p-6 border border-gray-200 rounded-lg hover:border-primary-500 hover:shadow-md transition-all"
+          >
+            <h2 className="text-xl font-semibold mb-2 text-primary-600">Live Matches</h2>
             <p className="text-gray-600">Follow real-time scores and updates</p>
-          </div>
-          <div className="p-6 border border-gray-200 rounded-lg">
+          </Link>
+          <div className="p-6 border border-gray-200 rounded-lg opacity-75">
             <h2 className="text-xl font-semibold mb-2">Make Predictions</h2>
             <p className="text-gray-600">Compete with other fans</p>
+            <span className="text-xs text-gray-400 mt-2 inline-block">Coming soon</span>
           </div>
-          <div className="p-6 border border-gray-200 rounded-lg">
+          <div className="p-6 border border-gray-200 rounded-lg opacity-75">
             <h2 className="text-xl font-semibold mb-2">Leaderboards</h2>
             <p className="text-gray-600">Climb the ranks</p>
+            <span className="text-xs text-gray-400 mt-2 inline-block">Coming soon</span>
           </div>
         </div>
       </div>

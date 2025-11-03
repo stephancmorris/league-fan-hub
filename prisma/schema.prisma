@@ -42,11 +42,21 @@ model Match {
   round         Int
   homeTeam      String
   awayTeam      String
+  homeTeamLogo  String?      // URL to team logo
+  awayTeamLogo  String?      // URL to team logo
   homeScore     Int?
   awayScore     Int?
   status        MatchStatus  @default(UPCOMING)
   kickoffTime   DateTime
   venue         String
+  season        Int          @default(2025)
+  competition   String       @default("NRL Premiership")
+
+  // Live match data
+  currentMinute Int?         // Current match minute
+  half          MatchHalf?   // Current half
+  lastScoreTime DateTime?    // Last time a score was recorded
+
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 
@@ -55,6 +65,7 @@ model Match {
 
   @@index([status])
   @@index([kickoffTime])
+  @@index([round, season])
 }
 
 // Match status enum
@@ -63,6 +74,14 @@ enum MatchStatus {
   LIVE
   COMPLETED
   CANCELLED
+}
+
+// Match half enum
+enum MatchHalf {
+  FIRST_HALF
+  HALF_TIME
+  SECOND_HALF
+  FULL_TIME
 }
 
 // Prediction model

@@ -143,6 +143,7 @@ DESIGN*.md
 stories.md
 sprint-stories.md
 STORIES*.md
+STORY_*.md
 explanation*.md
 EXPLANATION*.md
 planning/
@@ -157,3 +158,5 @@ SETUP_SCRIPTS.md
 SETUP_GUIDE.md
 START_HERE.md
 QUICK_START.md
+PROJECT_BREAKDOWN.md
+LINTING_FIXES.md

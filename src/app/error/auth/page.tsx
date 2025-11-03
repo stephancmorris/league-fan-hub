@@ -1,13 +1,13 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 /**
- * Authentication error page
- * Displays detailed error messages for authentication failures
+ * Authentication error page content (wrapped in Suspense)
  */
-export default function AuthErrorPage() {
+function AuthErrorContent() {
   const searchParams = useSearchParams()
   const error = searchParams?.get('error')
   const errorDescription = searchParams?.get('error_description')
@@ -124,5 +124,25 @@ export default function AuthErrorPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+/**
+ * Authentication error page (with Suspense boundary)
+ */
+export default function AuthErrorPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+            <p className="mt-2 text-sm text-gray-600">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <AuthErrorContent />
+    </Suspense>
   )
 }
