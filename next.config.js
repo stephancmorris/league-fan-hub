@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['assets.nrl.com', 'localhost'],
+    domains: ['assets.nrl.com', 'localhost', 'via.placeholder.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,6 +20,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
       },
     ],
     formats: ['image/avif', 'image/webp'],
