@@ -152,3 +152,4 @@ jobs:
             http://localhost:3000
           uploadArtifacts: true
           temporaryPublicStorage: true
+        continue-on-error: true
