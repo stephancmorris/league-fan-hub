@@ -2,6 +2,7 @@
 
 import useSWR from 'swr'
 import { useState } from 'react'
+import { useAuth } from './useAuth'
 
 interface Prediction {
   id: string
@@ -15,21 +16,38 @@ interface PredictionsResponse {
   predictions: Prediction[]
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+const fetcher = (url: string) =>
+  fetch(url).then((res) => {
+    if (!res.ok) {
+      if (res.status === 401) {
+        // User not authenticated, return empty predictions
+        return { predictions: [] }
+      }
+      throw new Error('Failed to fetch predictions')
+    }
+    return res.json()
+  })
 
 /**
  * Custom hook for managing predictions with optimistic updates
  */
 export function usePredictions(matchId?: string) {
+  const { isAuthenticated } = useAuth()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Build API URL
   const apiUrl = matchId ? `/api/predictions?matchId=${matchId}` : '/api/predictions'
 
-  const { data, error, isLoading, mutate } = useSWR<PredictionsResponse>(apiUrl, fetcher, {
-    refreshInterval: 30000, // Refresh every 30 seconds
-    revalidateOnFocus: true,
-  })
+  // Only fetch if user is authenticated
+  const { data, error, isLoading, mutate } = useSWR<PredictionsResponse>(
+    isAuthenticated ? apiUrl : null,
+    fetcher,
+    {
+      refreshInterval: 30000, // Refresh every 30 seconds
+      revalidateOnFocus: true,
+      fallbackData: { predictions: [] }, // Default empty predictions
+    }
+  )
 
   /**
    * Submit a prediction with optimistic update
@@ -94,7 +112,8 @@ export function usePredictions(matchId?: string) {
    * Get prediction for a specific match
    */
   const getPredictionForMatch = (matchId: string): Prediction | undefined => {
-    return data?.predictions.find((p) => p.matchId === matchId)
+    if (!data?.predictions) return undefined
+    return data.predictions.find((p) => p.matchId === matchId)
   }
 
   return {
