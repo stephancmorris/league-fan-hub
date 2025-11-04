@@ -1,32 +1,93 @@
 {
-  "name": "NRL Fan Hub",
+  "name": "NRL Fan Hub - Live Scores & Predictions",
   "short_name": "NRL Hub",
-  "description": "Live NRL scores, predictions, and fan engagement",
-  "start_url": "/",
+  "description": "Follow live NRL matches, make predictions, and compete on leaderboards with other fans",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#1e3a8a",
-  "theme_color": "#1e3a8a",
+  "background_color": "#0B8246",
+  "theme_color": "#0B8246",
   "orientation": "portrait-primary",
+  "dir": "ltr",
+  "lang": "en-AU",
   "icons": [
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "categories": ["sports", "entertainment"],
+  "categories": ["sports", "entertainment", "news"],
+  "shortcuts": [
+    {
+      "name": "Live Matches",
+      "short_name": "Matches",
+      "description": "View live NRL matches and scores",
+      "url": "/matches?source=pwa",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Predictions",
+      "short_name": "Predict",
+      "description": "Make your match predictions",
+      "url": "/predictions?source=pwa",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Leaderboard",
+      "short_name": "Rankings",
+      "description": "View fan rankings and leaderboards",
+      "url": "/leaderboard?source=pwa",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
   "screenshots": [
     {
       "src": "/screenshot-1.png",
       "sizes": "540x720",
-      "type": "image/png"
+      "type": "image/png",
+      "label": "Live match scores with real-time updates"
+    },
+    {
+      "src": "/screenshot-2.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "label": "Make predictions and earn points"
     }
-  ]
+  ],
+  "prefer_related_applications": false
 }
