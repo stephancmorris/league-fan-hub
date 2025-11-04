@@ -1,3 +1,20 @@
+// Polyfill TextEncoder/TextDecoder FIRST - Required by @whatwg-node/fetch
+// MUST use require() here to ensure synchronous execution before any other imports
+const util = require('util')
+global.TextEncoder = util.TextEncoder
+global.TextDecoder = util.TextDecoder
+
+// Polyfill Web APIs - Required for Next.js NextRequest/NextResponse
+if (typeof global.fetch === 'undefined') {
+  // Import fetch polyfills from @whatwg-node/fetch which is compatible with Node.js
+  const { fetch, Request, Response, Headers, FormData } = require('@whatwg-node/fetch')
+  global.fetch = fetch
+  global.Request = Request
+  global.Response = Response
+  global.Headers = Headers
+  global.FormData = FormData
+}
+
 // Learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
 
@@ -31,4 +48,45 @@ jest.mock('next/navigation', () => ({
   })),
   usePathname: jest.fn(() => '/'),
   useSearchParams: jest.fn(() => new URLSearchParams()),
+}))
+
+// Mock Prisma Client
+jest.mock('@prisma/client', () => ({
+  PrismaClient: jest.fn(() => ({
+    user: {
+      findUnique: jest.fn(),
+      findMany: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
+    match: {
+      findUnique: jest.fn(),
+      findMany: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
+    prediction: {
+      findUnique: jest.fn(),
+      findMany: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      upsert: jest.fn(),
+    },
+    $disconnect: jest.fn(),
+  })),
+  MatchStatus: {
+    UPCOMING: 'UPCOMING',
+    LIVE: 'LIVE',
+    COMPLETED: 'COMPLETED',
+  },
+  MatchHalf: {
+    FIRST_HALF: 'FIRST_HALF',
+    HALF_TIME: 'HALF_TIME',
+    SECOND_HALF: 'SECOND_HALF',
+    FULL_TIME: 'FULL_TIME',
+  },
+  UserRole: {
+    USER: 'USER',
+    ADMIN: 'ADMIN',
+  },
 }))
