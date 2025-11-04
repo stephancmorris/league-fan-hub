@@ -217,11 +217,13 @@ See [.env.example](.env.example) for full list.
 
 ## Testing
 
+Comprehensive testing strategy with 140+ test cases covering unit, integration, E2E, and accessibility testing.
+
 ### Running Tests
 
 ```bash
 # Unit and integration tests
-npm run test
+npm test
 
 # Watch mode
 npm run test:watch
@@ -229,15 +231,35 @@ npm run test:watch
 # Coverage report
 npm run test:coverage
 
-# E2E tests (if implemented)
+# CI mode
+npm run test:ci
+
+# E2E tests
 npm run test:e2e
+
+# E2E with UI
+npm run test:e2e:ui
+
+# E2E in headed mode
+npm run test:e2e:headed
+
+# All tests
+npm run test:all
 ```
 
 ### Test Coverage
 
-- Minimum 70% coverage required
+- **Target:** 70% coverage across all metrics
+- **Unit Tests:** 60+ test cases for components
+- **API Tests:** 42 integration test cases
+- **E2E Tests:** 24 critical path scenarios
+- **Accessibility Tests:** 15+ WCAG compliance checks
 - Tests run automatically in CI/CD
-- Coverage reports uploaded to Codecov
+- Multi-browser E2E testing (Chrome, Firefox, Safari, Mobile)
+
+### Test Documentation
+
+For detailed testing information, see [TESTING.md](TESTING.md)
 
 ## Contributing
 

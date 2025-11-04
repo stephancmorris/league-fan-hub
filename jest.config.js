@@ -9,6 +9,18 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jest-environment-jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'node-addons'],
+    url: 'http://localhost/',
+  },
+  globals: {
+    'ts-jest': {
+      tsconfig: {
+        jsx: 'react',
+      },
+    },
+    fetch: global.fetch,
+  },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     // Mock Auth0 to avoid ESM issues with jose
@@ -24,13 +36,14 @@ const customJestConfig = {
   ],
   coverageThreshold: {
     global: {
-      branches: 0,
-      functions: 0,
-      lines: 0,
-      statements: 0,
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
     },
   },
   testMatch: ['**/__tests__/**/*.(test|spec).[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   transformIgnorePatterns: ['node_modules/(?!(jose|@auth0/nextjs-auth0)/)'],
 }
 
