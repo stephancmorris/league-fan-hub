@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import { AuthSync } from '@/components/auth/AuthSync'
+import { InstallPrompt } from '@/components/pwa/InstallPrompt'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <UserProvider>
           <AuthSync />
+          <InstallPrompt />
           {children}
         </UserProvider>
       </body>
