@@ -92,11 +92,6 @@ Prefer to do it manually? Follow the detailed guide:
 
 1. **Clone the repository**
 
-   ```bash
-   git clone https://github.com/yourusername/league-fan-hub.git
-   cd league-fan-hub
-   ```
-
 2. **Install dependencies**
 
    ```bash
