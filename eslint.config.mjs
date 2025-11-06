@@ -29,6 +29,7 @@ export default [
       'prisma/seed.ts',
       'jest.config.js',
       'jest.setup.js',
+      'e2e/**',
     ],
   },
   ...compat.extends(
