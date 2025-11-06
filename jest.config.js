@@ -7,6 +7,7 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig = {
+  setupFiles: ['<rootDir>/jest.polyfills.js'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jest-environment-jsdom',
   testEnvironmentOptions: {
@@ -26,6 +27,8 @@ const customJestConfig = {
     // Mock Auth0 to avoid ESM issues with jose
     '^@auth0/nextjs-auth0$': '<rootDir>/src/__mocks__/@auth0-nextjs-auth0.js',
     '^@auth0/nextjs-auth0/client$': '<rootDir>/src/__mocks__/@auth0-nextjs-auth0.js',
+    // Mock next/server to avoid Request/Response polyfill issues
+    '^next/server$': '<rootDir>/src/__mocks__/next-server.js',
   },
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',

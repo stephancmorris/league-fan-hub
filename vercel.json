@@ -50,5 +50,6 @@
       "source": "/healthz",
       "destination": "/api/health"
     }
-  ]
+  ],
+  "crons": []
 }
