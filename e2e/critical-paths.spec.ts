@@ -1,8 +1,9 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './fixtures/test-fixtures'
 
 /**
  * E2E Tests for Critical User Paths
  * Tests the main user journeys through the application
+ * Uses mocked API responses to avoid database dependency
  */
 
 test.describe('Critical User Paths', () => {

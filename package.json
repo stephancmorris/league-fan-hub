@@ -27,7 +27,14 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "deploy": "bash scripts/deploy.sh preview",
+    "deploy:prod": "bash scripts/deploy.sh production",
+    "deploy:check": "vercel whoami && vercel ls",
+    "vercel:link": "vercel link",
+    "vercel:env": "vercel env ls",
+    "vercel:logs": "vercel logs --prod",
+    "vercel:pull": "vercel env pull .env.local"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
@@ -54,6 +61,7 @@
     "@playwright/test": "^1.56.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.6",
     "@types/react-dom": "^19.0.2",

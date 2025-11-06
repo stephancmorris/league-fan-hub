@@ -32,6 +32,10 @@ describe('MatchCard', () => {
     round: 1,
     homeTeamLogo: null,
     awayTeamLogo: null,
+    season: 2025,
+    competition: 'NRL',
+    createdAt: new Date(),
+    updatedAt: new Date(),
   }
 
   describe('Upcoming Match', () => {

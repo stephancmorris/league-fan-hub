@@ -42,6 +42,10 @@ describe('PredictionWidget', () => {
     round: 1,
     homeTeamLogo: null,
     awayTeamLogo: null,
+    season: 2025,
+    competition: 'NRL',
+    createdAt: new Date(),
+    updatedAt: new Date(),
   }
 
   beforeEach(() => {
@@ -149,7 +153,9 @@ describe('PredictionWidget', () => {
     })
 
     it('shows loading state during submission', async () => {
-      const onPredictionSubmit = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 100)))
+      const onPredictionSubmit = jest.fn(
+        () => new Promise<void>((resolve) => setTimeout(resolve, 100))
+      )
 
       render(<PredictionWidget match={upcomingMatch} onPredictionSubmit={onPredictionSubmit} />)
 
@@ -167,7 +173,9 @@ describe('PredictionWidget', () => {
     })
 
     it('disables team selection during submission', async () => {
-      const onPredictionSubmit = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 100)))
+      const onPredictionSubmit = jest.fn(
+        () => new Promise<void>((resolve) => setTimeout(resolve, 100))
+      )
 
       render(<PredictionWidget match={upcomingMatch} onPredictionSubmit={onPredictionSubmit} />)
 

@@ -71,6 +71,10 @@ describe('Accessibility Tests', () => {
       round: 1,
       homeTeamLogo: null,
       awayTeamLogo: null,
+      season: 2025,
+      competition: 'NRL',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
     it('MatchCard should have no accessibility violations', async () => {
@@ -164,6 +168,10 @@ describe('Accessibility Tests', () => {
         round: 1,
         homeTeamLogo: null,
         awayTeamLogo: null,
+        season: 2025,
+        competition: 'NRL',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
 
       const { container } = render(<PredictionWidget match={mockMatch} />)
@@ -187,6 +195,10 @@ describe('Accessibility Tests', () => {
         homeTeamLogo: null,
         awayTeamLogo: null,
         currentMinute: 35,
+        season: 2025,
+        competition: 'NRL',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
 
       const { container } = render(<MatchCard match={liveMatch} />)
@@ -207,6 +219,10 @@ describe('Accessibility Tests', () => {
         round: 1,
         homeTeamLogo: null,
         awayTeamLogo: null,
+        season: 2025,
+        competition: 'NRL',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
 
       const { container } = render(<MatchCard match={completedMatch} />)
@@ -272,6 +288,10 @@ describe('Accessibility Tests', () => {
         round: 1,
         homeTeamLogo: null,
         awayTeamLogo: null,
+        season: 2025,
+        competition: 'NRL',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
 
       const { container, getAllByRole } = render(<PredictionWidget match={mockMatch} />)
@@ -313,6 +333,10 @@ describe('Accessibility Tests', () => {
         round: 1,
         homeTeamLogo: '/logos/broncos.png',
         awayTeamLogo: '/logos/cowboys.png',
+        season: 2025,
+        competition: 'NRL',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
 
       const { container, getByAltText } = render(<MatchCard match={matchWithLogos} />)
@@ -357,6 +381,10 @@ describe('Accessibility Tests', () => {
         round: 1,
         homeTeamLogo: null,
         awayTeamLogo: null,
+        season: 2025,
+        competition: 'NRL',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
 
       const { container } = render(<PredictionWidget match={mockMatch} />)
