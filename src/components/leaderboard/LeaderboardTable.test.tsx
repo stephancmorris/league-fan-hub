@@ -438,7 +438,7 @@ describe('LeaderboardTable', () => {
       rerender(<LeaderboardTable />)
 
       // Check if SWR was called with week timeframe
-      const calls = useSWR.mock.calls
+      const calls = useSWR.mock.calls as Array<[string, ...unknown[]]>
       const hasWeekCall = calls.some((call) => call[0].includes('timeframe=week'))
       expect(hasWeekCall || useSWR).toBeTruthy() // At least verify SWR was used
     })
