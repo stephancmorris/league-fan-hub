@@ -251,8 +251,12 @@ describe('/api/leaderboard', () => {
       const response = await GET(request)
       const data = await response.json()
 
-      expect(response.status).toBe(500)
-      expect(data.error).toBe('Failed to fetch leaderboard')
+      // Should return 200 with empty leaderboard instead of 500 to prevent app crashes
+      expect(response.status).toBe(200)
+      expect(data.leaderboard).toEqual([])
+      expect(data.currentUserRank).toBeNull()
+      expect(data.error).toBe('Unable to load leaderboard. Please try again later.')
+      expect(data.pagination.hasMore).toBe(false)
     })
 
     it('combines all query parameters correctly', async () => {
