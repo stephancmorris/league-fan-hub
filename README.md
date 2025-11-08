@@ -1,4 +1,4 @@
-# NRL Fan Hub
+# NRL Fan Hub (last update: Nov 8, 2025)
 
 A high-performance, scalable fan engagement platform built with Next.js, React, Auth0, and real-time WebSockets. Built to handle 100K+ concurrent users with enterprise-grade CI/CD.
 
