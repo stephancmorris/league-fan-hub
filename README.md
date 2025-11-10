@@ -15,14 +15,14 @@
 
 ### Key Metrics
 
-| Metric                | Achievement                           |
-| --------------------- | ------------------------------------- |
-| **Lighthouse Score**  | 95/100 ⚡                             |
-| **Concurrent Users**  | 100,000+ 👥                           |
-| **API Response Time** | <100ms (p95) 🚀                       |
-| **Test Coverage**     | 70%+ (140+ tests) ✅                  |
-| **Load Testing**      | 10K users, 30min, 0.02% error rate 📊 |
-| **Bundle Size**       | 225KB (optimized) 📦                  |
+| Metric                        | Achievement                           |
+| ---------------------         | ------------------------------------- |
+| **Lighthouse Score**          | 95/100 ⚡                             |
+| **Concurrent User Capcity**   | 100,000 👥                            |
+| **API Response Time**         | <100ms (p95) 🚀                       |
+| **Test Coverage**             | 70%+ (140+ tests) ✅                  |
+| **Load Testing**              | 10K users, 30min, 0.02% error rate 📊 |
+| **Bundle Size**               | 225KB (optimized) 📦                  |
 
 </div>
 
